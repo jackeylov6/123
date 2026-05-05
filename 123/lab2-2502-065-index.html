@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>图书商城</title>
+    <link rel="stylesheet" href="css/lab2-2502-065-index.css">
+</head>
+<body>
+<header class="header">
+    <div class="logo">
+        <img src="img/logo.png" alt="Logo">
+        图书商城
+    </div>
+    <nav class="top-nav">
+        <a href="#">首页</a>
+        <a href="#">图书分类</a>
+        <a href="#">热门推荐</a>
+        <a href="#">新书上市</a>
+        <a href="#">关于我们</a>
+        <a href="#" class="icon-btn search-icon">🔍</a>
+        <a href="#" class="icon-btn cart-icon">🛒</a>
+        <a href="#" class="login-btn">登录</a>
+        <a href="#" class="register-btn">注册</a>
+    </nav>
+</header>
+<div class="container">
+    <aside class="left-bar">
+        <h2>图书分类</h2>
+        <ul>
+            <li>计算机图书</li>
+            <li>文学小说</li>
+            <li>历史传记</li>
+            <li>少儿读物</li>
+            <li>考试考证</li>
+        </ul>
+    </aside>
+    <main class="middle-bar">
+        <section class="carousel">
+            <div class="carousel-container">
+                <div class="carousel-item">
+                    <img src="img/1.png" alt="轮播图1">
+                    <div class="carousel-text">精选好书推荐</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/2.png" alt="轮播图2">
+                    <div class="carousel-text">新书上市优惠</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/3.png" alt="轮播图3">
+                    <div class="carousel-text">限时特价活动</div>
+                </div>
+            </div>
+            <div class="carousel-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+        </section>
+        <section class="book-show">
+            <h2>图书展示</h2>
+            <div class="book-item">
+                <img src="img/book1.png" alt="图书1">
+                <div>斗罗大陆1</div>
+                <div class="book-tip">热销中</div>
+                <div class="book-hover">点击查看详情</div>
+            </div>
+            <div class="book-item">
+                <img src="img/book2.png" alt="图书2">
+                <div>斗罗大陆2</div>
+            </div>
+            <div class="book-item">
+                <img src="img/book3.png" alt="图书3">
+                <div>斗罗大陆3</div>
+            </div>
+            <div class="book-item">
+                <img src="img/book4.png" alt="图书4">
+                <div>斗罗大陆4</div>
+            </div>
+        </section>
+        <section class="hot-book">
+            <h2>热门推荐（网络小说早期四大名著）</h2>
+            <div class="hot-item">小兵传奇</div>
+            <div class="hot-item">飘渺之旅</div>
+            <div class="hot-item">诛仙</div>
+            <div class="hot-item">紫川</div>
+        </section>
+        <section class="new-book">
+            <h2>新书上市</h2>
+            <table border="1" cellpadding="8" cellspacing="0">
+                <tr>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>价格</th>
+                </tr>
+                <tr>
+                    <td>重生之我是faker</td>
+                    <td>叶子的清清清清清</td>
+                    <td>1元</td>
+                </tr>
+                <tr>
+                    <td>从JackeyLove到吉神</td>
+                    <td>失忆是诗意的失意</td>
+                    <td>1元</td>
+                </tr>
+            </table>
+        </section>
+    </main>
+    <aside class="right-bar">
+        <h3>促销信息</h3>
+        <p>满100减20</p>
+        <p>新用户立减10元</p>
+        <p>会员包邮</p>
+    </aside>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuItems = document.querySelectorAll('.left-bar li');
+        menuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                menuItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        const loginBtn = document.querySelector('.login-btn');
+        const registerBtn = document.querySelector('.register-btn');
+        const loginModal = document.querySelector('.login-modal');
+        const registerModal = document.querySelector('.register-modal');
+        const closeBtns = document.querySelectorAll('.close-btn');
+        const switchRegister = document.querySelector('.switch-register');
+        const switchLogin = document.querySelector('.switch-login');
+        const loginForm = document.querySelector('.login-form');
+        const registerForm = document.querySelector('.register-form');
+
+        loginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginModal.classList.add('active');
+        });
+
+        registerBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            registerModal.classList.add('active');
+        });
+
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                loginModal.classList.remove('active');
+                registerModal.classList.remove('active');
+            });
+        });
+
+        window.addEventListener('click', function(e) {
+            if (e.target === loginModal) loginModal.classList.remove('active');
+            if (e.target === registerModal) registerModal.classList.remove('active');
+        });
+
+        switchRegister.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginModal.classList.remove('active');
+            registerModal.classList.add('active');
+        });
+
+        switchLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            registerModal.classList.remove('active');
+            loginModal.classList.add('active');
+        });
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = this.querySelector('input[type="text"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+            if (username && password) {
+                alert('登录成功！欢迎回来，' + username + '！');
+                loginModal.classList.remove('active');
+            }
+        });
+
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = this.querySelectorAll('input[type="text"]')[0].value;
+            const password = this.querySelectorAll('input[type="password"]')[0].value;
+            const confirmPassword = this.querySelectorAll('input[type="password"]')[1].value;
+            if (username && password && confirmPassword) {
+                if (password === confirmPassword) {
+                    alert('注册成功！欢迎加入我们，' + username + '！');
+                    registerModal.classList.remove('active');
+                } else {
+                    alert('两次输入的密码不一致！');
+                }
+            }
+        });
+    });
+</script>
+
+<div class="modal login-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>用户登录</h3>
+            <span class="close-btn">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form class="login-form">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" placeholder="请输入用户名" required>
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" placeholder="请输入密码" required>
+                </div>
+                <button type="submit" class="btn btn-primary">登录</button>
+                <p class="form-footer">还没有账号？<a href="#" class="switch-register">立即注册</a></p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal register-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>用户注册</h3>
+            <span class="close-btn">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form class="register-form">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" placeholder="请输入用户名" required>
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" placeholder="请输入密码" required>
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" placeholder="请确认密码" required>
+                </div>
+                <button type="submit" class="btn btn-primary">注册</button>
+                <p class="form-footer">已有账号？<a href="#" class="switch-login">立即登录</a></p>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
